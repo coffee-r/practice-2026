@@ -1,0 +1,66 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: digshop
+      APP_USER_PASSWORD: digshop
+    ports:
+      - "1521:1521"
+    volumes:
+      # ci3-shop スキーマ（digshop ユーザーとして APP_USER で実行）
+      - ./ci3-shop/docker/oracle/init/01-schema.sql:/container-entrypoint-initdb.d/01-schema.sql:ro
+      # lshop ユーザー作成 + スキーマ（ファイル名順: 01→10→11）
+      - ./laravel12-shop/docker/oracle/init/10-lshop-user.sh:/container-entrypoint-initdb.d/10-lshop-user.sh:ro
+      - ./laravel12-shop/docker/oracle/init/11-lshop-schema.sh:/container-entrypoint-initdb.d/11-lshop-schema.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+
+  ci3-shop:
+    build:
+      context: ../..
+      dockerfile: experiments/shop-migration/ci3-shop/docker/php/Dockerfile
+    environment:
+      DIGSHOP_DB_USER: digshop
+      DIGSHOP_DB_PASSWORD: digshop
+      DIGSHOP_DB_CONNECT: oracle:1521/FREEPDB1
+      TEKAGAMI_LOG: /var/www/html/var/tekagami.jsonl
+      TEKAGAMI_SECRET: local-e2e-secret
+    ports:
+      - "8088:80"
+    volumes:
+      - ./ci3-shop/var:/var/www/html/var
+    depends_on:
+      oracle:
+        condition: service_healthy
+
+  laravel12-shop:
+    build:
+      context: ../..
+      dockerfile: experiments/shop-migration/laravel12-shop/docker/php/Containerfile
+    environment:
+      DB_CONNECTION: oracle
+      DB_HOST: oracle
+      DB_PORT: 1521
+      DB_DATABASE: ""
+      DB_SERVICE_NAME: FREEPDB1
+      DB_USERNAME: lshop
+      DB_PASSWORD: lshop
+      TEKAGAMI_LOG: /var/www/laravel12-shop/storage/app/tekagami.jsonl
+      TEKAGAMI_SECRET: local-e2e-secret
+      APP_KEY: "base64:+LVgpws/Ez437LC/Rrv2vK5aTyACmjiJokD2hi28N1Q="
+      APP_ENV: local
+      APP_DEBUG: "true"
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+    ports:
+      - "8089:8000"
+    volumes:
+      - ./laravel12-shop/var:/var/www/laravel12-shop/storage/app
+    depends_on:
+      oracle:
+        condition: service_healthy

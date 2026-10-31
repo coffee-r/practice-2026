@@ -1,0 +1,42 @@
+FROM php:8.4-cli-bookworm
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+ARG ORACLE_IC_VERSION=23.26.2.0.0
+ARG TARGETARCH
+
+RUN set -eux; \
+    apt-get update \
+    && apt-get install -y --no-install-recommends unzip curl libaio1 git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN set -eux; \
+    if [ "${TARGETARCH:-amd64}" = "arm64" ]; then ic_arch="arm64"; else ic_arch="x64"; fi; \
+    ic_dir="$(echo "$ORACLE_IC_VERSION" | tr -d '.')"; \
+    curl -fsSL -o /tmp/instantclient-basiclite.zip "https://download.oracle.com/otn_software/linux/instantclient/${ic_dir}/instantclient-basiclite-linux.${ic_arch}-${ORACLE_IC_VERSION}.zip"; \
+    curl -fsSL -o /tmp/instantclient-sdk.zip "https://download.oracle.com/otn_software/linux/instantclient/${ic_dir}/instantclient-sdk-linux.${ic_arch}-${ORACLE_IC_VERSION}.zip"; \
+    unzip -oq /tmp/instantclient-basiclite.zip -d /opt/oracle; \
+    unzip -oq /tmp/instantclient-sdk.zip -d /opt/oracle; \
+    ln -s /opt/oracle/instantclient_* /opt/oracle/instantclient; \
+    echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf; \
+    ldconfig; \
+    printf "instantclient,/opt/oracle/instantclient\n" | pecl install oci8; \
+    docker-php-ext-enable oci8; \
+    rm -f /tmp/instantclient-basiclite.zip /tmp/instantclient-sdk.zip
+
+# tekagami ライブラリ
+COPY observer-php/composer.json observer-php/composer.lock /opt/tekagami/
+COPY observer-php/src /opt/tekagami/src
+COPY observer-php/bin /opt/tekagami/bin
+RUN cd /opt/tekagami && composer install --no-dev --prefer-dist --no-interaction --no-progress
+
+# Laravel 12 アプリケーション
+COPY experiments/shop-migration/laravel12-shop /var/www/laravel12-shop
+RUN cd /var/www/laravel12-shop \
+    && composer install --no-dev --prefer-dist --no-interaction --no-progress \
+    && mkdir -p storage/app storage/logs bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache
+
+WORKDIR /var/www/laravel12-shop
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000", "--no-reload"]

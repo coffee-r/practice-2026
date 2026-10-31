@@ -1,0 +1,41 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: score-ranking-api
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_ENV=development
+    networks:
+        - score-ranking-network
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: 'postgres:17.6'
+    ports:
+        - '5432:5432'
+    environment:
+        POSTGRES_DB: 'ranking'
+        POSTGRES_USER: 'webdb'
+        POSTGRES_PASSWORD: 'dbuser'
+    volumes:
+        - 'score-ranking-pgsql:/var/lib/postgresql/data'
+    networks:
+        - score-ranking-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+networks:
+    score-ranking-network:
+        driver: bridge
+volumes:
+    score-ranking-pgsql:
+        driver: local

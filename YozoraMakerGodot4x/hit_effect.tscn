@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b11e6pu5il7fk"]
+
+[ext_resource type="Script" path="res://hit_effect.gd" id="1_jfohy"]
+[ext_resource type="Texture2D" uid="uid://cmckkeqccqea1" path="res://textures/white_square.png" id="1_k6sgn"]
+
+[node name="HitEffect" type="Node2D"]
+position = Vector2(68, 120)
+script = ExtResource("1_jfohy")
+
+[node name="Sprite2DHorizon" type="Sprite2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(500, 3)
+texture = ExtResource("1_k6sgn")
+
+[node name="Sprite2DVertical" type="Sprite2D" parent="."]
+scale = Vector2(3, 500)
+texture = ExtResource("1_k6sgn")

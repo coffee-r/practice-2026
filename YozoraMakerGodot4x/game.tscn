@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://douhlhep4qoha"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_j7sqp"]
+[ext_resource type="PackedScene" uid="uid://biixff4jmtno5" path="res://stage.tscn" id="1_q6h8v"]
+[ext_resource type="PackedScene" uid="uid://dxt8fub658utv" path="res://player.tscn" id="2_trlgd"]
+[ext_resource type="FontFile" uid="uid://be6q8glejura1" path="res://fonts/x12y16pxLineLinker.ttf" id="4_xioxf"]
+[ext_resource type="Script" path="res://ScoreLabel.gd" id="5_xg6br"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="6_7p371"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_j7sqp")
+
+[node name="Stage" parent="." instance=ExtResource("1_q6h8v")]
+
+[node name="Player" parent="." instance=ExtResource("2_trlgd")]
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="GameUI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_xioxf")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_xg6br")
+
+[node name="ViewGrazingTimer" type="Timer" parent="GameUI/ScoreLabel"]
+wait_time = 0.5
+one_shot = true
+
+[node name="GameEndTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("6_7p371")
+
+[connection signal="add_score" from="Player" to="GameUI/ScoreLabel" method="_on_player_add_score"]
+[connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
+[connection signal="player_death" from="Player" to="Camera2D" method="_on_player_player_death"]
+[connection signal="timeout" from="GameUI/ScoreLabel/ViewGrazingTimer" to="GameUI/ScoreLabel" method="_on_view_grazing_timer_timeout"]
+[connection signal="timeout" from="GameEndTimer" to="." method="_on_game_end_timer_timeout"]

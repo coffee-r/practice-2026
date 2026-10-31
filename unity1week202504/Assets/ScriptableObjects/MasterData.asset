@@ -1,0 +1,696 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0b70fa63c564b6dbc9b04448771adb, type: 3}
+  m_Name: MasterData
+  m_EditorClassIdentifier: 
+  GameSetting:
+    MaxWeightGrams: 5000
+    BaseProgressMeterPerStep: 500
+    BaseMinitesPerStep: 30
+    Level1TargetDistanceMeter: 4700
+    Level2TargetDistanceMeter: 5400
+    Level3TargetDistanceMeter: 9000
+    Day1StartMinutes: 540
+    Day2StartMinutes: 240
+    Day1TimeLimitMinutes: 900
+    Day2TimeLimitMinutes: 600
+  ItemList:
+  - id: 1
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 2
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 3
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 4
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 5
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 6
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 7
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 8
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 9
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 10
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 11
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 12
+    Name: "250ml\u306E\u6C34"
+    WeightGrams: 250
+    Consumable: 1
+    ResolvableTroubleTypes: 01000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 13
+    Name: "\u7F8A\u7FB9"
+    WeightGrams: 50
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 14
+    Name: "\u7F8A\u7FB9"
+    WeightGrams: 50
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 15
+    Name: "\u30AB\u30B9\u30C6\u30E9"
+    WeightGrams: 70
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 16
+    Name: "\u30AB\u30B9\u30C6\u30E9"
+    WeightGrams: 70
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 17
+    Name: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
+    WeightGrams: 60
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 18
+    Name: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
+    WeightGrams: 60
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 19
+    Name: "\u30DD\u30C6\u30C8\u30C1\u30C3\u30D7\u30B9"
+    WeightGrams: 40
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 20
+    Name: "\u30DD\u30C6\u30C8\u30C1\u30C3\u30D7\u30B9"
+    WeightGrams: 40
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 21
+    Name: "\u304A\u306B\u304E\u308A"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 22
+    Name: "\u304A\u306B\u304E\u308A"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 23
+    Name: "\u30BC\u30EA\u30FC\u98F2\u6599"
+    WeightGrams: 180
+    Consumable: 1
+    ResolvableTroubleTypes: 0100000002000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 24
+    Name: "\u30BC\u30EA\u30FC\u98F2\u6599"
+    WeightGrams: 180
+    Consumable: 1
+    ResolvableTroubleTypes: 0100000002000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 25
+    Name: "\u30AF\u30C3\u30AD\u30FC"
+    WeightGrams: 80
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 26
+    Name: "\u30AF\u30C3\u30AD\u30FC"
+    WeightGrams: 80
+    Consumable: 1
+    ResolvableTroubleTypes: 02000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 27
+    Name: "\u30A2\u30DF\u30CE\u9178\u7C89\u672B"
+    WeightGrams: 10
+    Consumable: 1
+    ResolvableTroubleTypes: 0200000006000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 28
+    Name: "\u30A2\u30DF\u30CE\u9178\u7C89\u672B"
+    WeightGrams: 10
+    Consumable: 1
+    ResolvableTroubleTypes: 0200000006000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 29
+    Name: "\u30EC\u30A4\u30F3\u30A6\u30A7\u30A2"
+    WeightGrams: 300
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 04000000
+    ManageableTerrainTypes: 
+  - id: 30
+    Name: "\u30A6\u30A4\u30F3\u30C9\u30D6\u30EC\u30FC\u30AB\u30FC"
+    WeightGrams: 200
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 05000000
+    ManageableTerrainTypes: 
+  - id: 31
+    Name: "\u30C0\u30A6\u30F3\u30A6\u30A7\u30A2"
+    WeightGrams: 100
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 03000000
+    ManageableTerrainTypes: 
+  - id: 32
+    Name: "\u30C1\u30A7\u30FC\u30F3\u30B9\u30D1\u30A4\u30AF"
+    WeightGrams: 360
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 03000000
+  - id: 33
+    Name: "\u7D30\u5F15\u304D\u30ED\u30FC\u30D7"
+    WeightGrams: 80
+    Consumable: 1
+    ResolvableTroubleTypes: 08000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 34
+    Name: "\u30B9\u30C6\u30ED\u30A4\u30C9\u8EDF\u818F"
+    WeightGrams: 50
+    Consumable: 1
+    ResolvableTroubleTypes: 09000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 35
+    Name: "\u30EA\u30C1\u30A6\u30E0\u30D0\u30C3\u30C6\u30EA\u30FC"
+    WeightGrams: 200
+    Consumable: 1
+    ResolvableTroubleTypes: 0a000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 36
+    Name: "\u30D8\u30EB\u30E1\u30C3\u30C8"
+    WeightGrams: 200
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 06000000
+  - id: 37
+    Name: "\u8584\u624B\u306E\u30B0\u30ED\u30FC\u30D6"
+    WeightGrams: 100
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 05000000
+  - id: 38
+    Name: "\u5E3D\u5B50"
+    WeightGrams: 70
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 02000000
+    ManageableTerrainTypes: 
+  - id: 39
+    Name: "\u30D0\u30E9\u30AF\u30E9\u30D0"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 0b000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 40
+    Name: "\u4E7E\u71E5\u3057\u305F\u30BF\u30AA\u30EB"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 03000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 41
+    Name: "\u4E7E\u71E5\u3057\u305F\u30BF\u30AA\u30EB"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 03000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 42
+    Name: "\u30D5\u30A1\u30FC\u30B9\u30C8\u30A8\u30A4\u30C9\u30AD\u30C3\u30C8"
+    WeightGrams: 200
+    Consumable: 1
+    ResolvableTroubleTypes: 00000000050000000900000004000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 43
+    Name: "\u819D\u30B5\u30DD\u30FC\u30BF\u30FC"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 06000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 44
+    Name: "\u30C8\u30EC\u30C3\u30AD\u30F3\u30B0\u30DD\u30FC\u30EB"
+    WeightGrams: 200
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 0000000001000000
+  - id: 45
+    Name: "\u4F11\u61A9\u7528\u30EC\u30B8\u30E3\u30FC\u30B7\u30FC\u30C8"
+    WeightGrams: 50
+    Consumable: 1
+    ResolvableTroubleTypes: 00000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 46
+    Name: "\u4F11\u61A9\u7528\u30EC\u30B8\u30E3\u30FC\u30B7\u30FC\u30C8"
+    WeightGrams: 50
+    Consumable: 1
+    ResolvableTroubleTypes: 00000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 47
+    Name: "\u30C6\u30FC\u30D4\u30F3\u30B0"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 05000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 48
+    Name: "\u7A7A\u64AE\u7528\u30C9\u30ED\u30FC\u30F3"
+    WeightGrams: 300
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 49
+    Name: "\u4E00\u773C\u30AB\u30E1\u30E9"
+    WeightGrams: 600
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 50
+    Name: "\u5730\u56F3\u3068\u30B3\u30F3\u30D1\u30B9"
+    WeightGrams: 50
+    Consumable: 1
+    ResolvableTroubleTypes: 0c000000
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 51
+    Name: "6\u672C\u722A\u30A2\u30A4\u30BC\u30F3"
+    WeightGrams: 450
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 03000000
+  - id: 52
+    Name: "10\u672C\u722A\u30A2\u30A4\u30BC\u30F3"
+    WeightGrams: 800
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 03000000
+  - id: 53
+    Name: "\u30B5\u30F3\u30B0\u30E9\u30B9"
+    WeightGrams: 40
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 02000000
+    ManageableTerrainTypes: 
+  - id: 54
+    Name: "\u5C71\u5CB3\u7528\u30C6\u30F3\u30C8"
+    WeightGrams: 1300
+    Consumable: 1
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 55
+    Name: "\u30AF\u30C3\u30AB\u30FC"
+    WeightGrams: 300
+    Consumable: 1
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 56
+    Name: "\u6D44\u6C34\u5668"
+    WeightGrams: 100
+    Consumable: 1
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 
+  - id: 57
+    Name: "\u30B2\u30A4\u30BF\u30FC"
+    WeightGrams: 50
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 
+    ManageableTerrainTypes: 02000000
+  - id: 58
+    Name: "\u30D8\u30C3\u30C9\u30E9\u30A4\u30C8"
+    WeightGrams: 50
+    Consumable: 0
+    ResolvableTroubleTypes: 
+    ManageableWeatherTypes: 01000000
+    ManageableTerrainTypes: 
+  CourseList:
+  - DistanceMeterStart: 0
+    DistanceMeterEnd: 0
+    Altitude: 1510
+    TrekkerMovableSpeed: 400
+    TroubleOccurrencePercent: 0
+    TerrainType: 0
+    LocationName: "\u5E83\u6CB3\u539F"
+    SpriteImage: {fileID: -1059335925553414096, guid: 5ad3caa7c518149399ed95438d8f28e1, type: 3}
+    SpriteSize: {x: 1000, y: 1333}
+  - DistanceMeterStart: 1
+    DistanceMeterEnd: 999
+    Altitude: 1700
+    TrekkerMovableSpeed: 400
+    TroubleOccurrencePercent: 30
+    TerrainType: 1
+    LocationName: "\u767D\u6839\u5FA1\u6C60\u307E\u3067\u306E\u6025\u767B1"
+    SpriteImage: {fileID: -4379503277668925510, guid: 166b0b3bc8fc14975b6c456bc99f272d, type: 3}
+    SpriteSize: {x: 1024, y: 1365}
+  - DistanceMeterStart: 1000
+    DistanceMeterEnd: 2399
+    Altitude: 2100
+    TrekkerMovableSpeed: 400
+    TroubleOccurrencePercent: 30
+    TerrainType: 2
+    LocationName: "\u767D\u6839\u5FA1\u6C60\u307E\u3067\u306E\u6025\u767B2"
+    SpriteImage: {fileID: -444879023042207796, guid: 56d06686ec71f46bc94d1e2f1678d2c3, type: 3}
+    SpriteSize: {x: 1000, y: 750}
+  - DistanceMeterStart: 2400
+    DistanceMeterEnd: 3099
+    Altitude: 2200
+    TrekkerMovableSpeed: 600
+    TroubleOccurrencePercent: 30
+    TerrainType: 3
+    LocationName: "\u8349\u30B9\u30D9\u30EA\u624B\u524D"
+    SpriteImage: {fileID: 1977373298795435877, guid: c5b1a047b402b4b84bce95d3b5a02197, type: 3}
+    SpriteSize: {x: 1000, y: 1333}
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 3699
+    Altitude: 2500
+    TrekkerMovableSpeed: 350
+    TroubleOccurrencePercent: 30
+    TerrainType: 1
+    LocationName: "\u8349\u30B9\u30D9\u30EA"
+    SpriteImage: {fileID: -3464138253987999521, guid: 0b38dd4b735dd469ba6ffd07f8920a13, type: 3}
+    SpriteSize: {x: 1024, y: 768}
+  - DistanceMeterStart: 3700
+    DistanceMeterEnd: 4699
+    Altitude: 2800
+    TrekkerMovableSpeed: 400
+    TroubleOccurrencePercent: 30
+    TerrainType: 4
+    LocationName: "\u5317\u5CB3\u306E\u80A9\u53E3\u307E\u3067\u306E\u9053\u306E\u308A"
+    SpriteImage: {fileID: -3551070871408067450, guid: 4447d57ebaf594308a0b42d19980a819, type: 3}
+    SpriteSize: {x: 1024, y: 768}
+  - DistanceMeterStart: 4700
+    DistanceMeterEnd: 4999
+    Altitude: 3000
+    TrekkerMovableSpeed: 300
+    TroubleOccurrencePercent: 40
+    TerrainType: 6
+    LocationName: "\u5317\u5CB3\u306E\u80A9\u53E3"
+    SpriteImage: {fileID: -9079092716238181513, guid: 8c838abf582344007ae1ce8ef0bc6f0d, type: 3}
+    SpriteSize: {x: 1024, y: 768}
+  - DistanceMeterStart: 5000
+    DistanceMeterEnd: 5499
+    Altitude: 3150
+    TrekkerMovableSpeed: 300
+    TroubleOccurrencePercent: 40
+    TerrainType: 6
+    LocationName: "\u5317\u5CB3\u5C71\u9802\u524D"
+    SpriteImage: {fileID: -8467108524499351907, guid: cdae6a8e5400249e8ab196c78a99c315, type: 3}
+    SpriteSize: {x: 1024, y: 768}
+  - DistanceMeterStart: 5500
+    DistanceMeterEnd: 5899
+    Altitude: 3150
+    TrekkerMovableSpeed: 350
+    TroubleOccurrencePercent: 50
+    TerrainType: 5
+    LocationName: "\u5317\u5CB3\u5C71\u9802\u306E\u4E0B\u308A\u9053"
+    SpriteImage: {fileID: -6706850039018521650, guid: 234c92493e9d94a69930ecb42a2d50c0, type: 3}
+    SpriteSize: {x: 1024, y: 768}
+  - DistanceMeterStart: 5900
+    DistanceMeterEnd: 8999
+    Altitude: 2900
+    TrekkerMovableSpeed: 400
+    TroubleOccurrencePercent: 50
+    TerrainType: 4
+    LocationName: "\u5929\u7A7A\u306E\u7A1C\u7DDA"
+    SpriteImage: {fileID: -87506591859453776, guid: 9f505782f16124580b9a4e5978eabef4, type: 3}
+    SpriteSize: {x: 2048, y: 555}
+  - DistanceMeterStart: 9000
+    DistanceMeterEnd: 99999
+    Altitude: 2900
+    TrekkerMovableSpeed: 400
+    TroubleOccurrencePercent: 0
+    TerrainType: 4
+    LocationName: "\u5929\u7A7A\u306E\u7A1C\u7DDA"
+    SpriteImage: {fileID: -87506591859453776, guid: 9f505782f16124580b9a4e5978eabef4, type: 3}
+    SpriteSize: {x: 2048, y: 555}
+  TerrainList:
+  - TerrainType: 0
+    MovementPenalty: 0
+    MovementMessage: "\u8217\u88C5\u3055\u308C\u3066\u3044\u3066\u6B69\u304D\u3084\u3059\u3044\u3002"
+  - TerrainType: 1
+    MovementPenalty: 20
+    MovementMessage: "\u6A39\u6797\u5E2F\u3067\u9053\u304C\u51F8\u51F9\u3057\u3066\u3044\u308B\u3002"
+  - TerrainType: 2
+    MovementPenalty: 10
+    MovementMessage: "\u6C34\u305F\u307E\u308A\u304C\u3067\u304D\u3066\u3044\u3066\u670D\u304C\u6C5A\u308C\u308B\u3002"
+  - TerrainType: 3
+    MovementPenalty: 150
+    MovementMessage: "\u5730\u9762\u304C\u51CD\u3063\u3066\u3044\u3066\u3064\u308B\u3064\u308B\u3057\u3066\u3044\u308B\u3002"
+  - TerrainType: 4
+    MovementPenalty: 0
+    MovementMessage: "\u306A\u3060\u3089\u304B\u3067\u6B69\u304D\u3084\u3059\u3044\u3002"
+  - TerrainType: 5
+    MovementPenalty: 50
+    MovementMessage: "\u624B\u3082\u4F7F\u3063\u3066\u6B69\u304B\u306A\u3044\u3068\u5371\u967A\u3060\u3002"
+  - TerrainType: 6
+    MovementPenalty: 150
+    MovementMessage: "\u4E0A\u304B\u3089\u77F3\u304C\u8EE2\u304C\u3063\u3066\u304F\u308B\u3002"
+  WeatherScheduleList:
+  - Day: 1
+    MinitesStart: 540
+    MinitesEnd: 750
+    WeatherType: 0
+  - Day: 1
+    MinitesStart: 780
+    MinitesEnd: 810
+    WeatherType: 4
+  - Day: 1
+    MinitesStart: 870
+    MinitesEnd: 99999
+    WeatherType: 3
+  - Day: 2
+    MinitesStart: 240
+    MinitesEnd: 270
+    WeatherType: 1
+  - Day: 2
+    MinitesStart: 300
+    MinitesEnd: 390
+    WeatherType: 5
+  - Day: 2
+    MinitesStart: 420
+    MinitesEnd: 99999
+    WeatherType: 2
+  WeatherList:
+  - WeatherType: 0
+    MovementPenalty: 0
+    MovementMessage: 
+  - WeatherType: 1
+    MovementPenalty: 50
+    MovementMessage: "\u8584\u6697\u304F\u3066\u8DB3\u5143\u304C\u898B\u3048\u306A\u3044\u3002"
+  - WeatherType: 2
+    MovementPenalty: 50
+    MovementMessage: "\u65E5\u5DEE\u3057\u304C\u5F37\u304F\u3066\u65E5\u713C\u3051\u3057\u305D\u3046\u3060\u3002"
+  - WeatherType: 3
+    MovementPenalty: 50
+    MovementMessage: "\u5BD2\u3059\u304E\u3066\u624B\u5148\u304C\u51CD\u308B\u3002"
+  - WeatherType: 4
+    MovementPenalty: 100
+    MovementMessage: "\u731B\u70C8\u306B\u5F37\u3044\u96E8\u304C\u4F53\u3092\u6253\u3061\u4ED8\u3051\u308B\u3002"
+  - WeatherType: 5
+    MovementPenalty: 50
+    MovementMessage: "\u98A8\u304C\u5F37\u304F\u3066\u4F53\u6E29\u3092\u596A\u308F\u308C\u305D\u3046\u3060\u3002"
+  TroubleList:
+  - TroubleType: 0
+    MovementPenalty: 50
+    MovementMessage: "\u9AD8\u5C71\u75C5\u3067\u982D\u75DB\u304C\u3059\u308B\u3002"
+  - TroubleType: 1
+    MovementPenalty: 50
+    MovementMessage: "\u5589\u304C\u30AB\u30E9\u30AB\u30E9\u3060\u3002"
+  - TroubleType: 2
+    MovementPenalty: 50
+    MovementMessage: "\u4F53\u306E\u30A8\u30CD\u30EB\u30AE\u30FC\u304C\u71C3\u3048\u5C3D\u304D\u305F\u3002"
+  - TroubleType: 3
+    MovementPenalty: 30
+    MovementMessage: "\u6C57\u3067\u4F53\u304C\u51B7\u3048\u308B\u3002"
+  - TroubleType: 4
+    MovementPenalty: 20
+    MovementMessage: "\u8E35\u306E\u4E0A\u304C\u64E6\u308C\u3066\u3044\u305F\u3044\u3002"
+  - TroubleType: 5
+    MovementPenalty: 100
+    MovementMessage: "\u8DB3\u9996\u304C\u75DB\u3044\u3002"
+  - TroubleType: 6
+    MovementPenalty: 50
+    MovementMessage: "\u7B4B\u8089\u75DB\u3067\u819D\u304C\u7B11\u3063\u3066\u3044\u308B\u3002"
+  - TroubleType: 8
+    MovementPenalty: 200
+    MovementMessage: "\u9774\u7D10\u304C\u5207\u308C\u3066\u6B69\u3051\u306A\u3055\u305D\u3046\u3060\u3002"
+  - TroubleType: 9
+    MovementPenalty: 30
+    MovementMessage: "\u30A2\u30D6\u306B\u523A\u3055\u308C\u305F\u3068\u3053\u308D\u304C\u75D2\u3044\u3002"
+  - TroubleType: 10
+    MovementPenalty: 50
+    MovementMessage: "\u30B9\u30DE\u30DB\u306E\u5145\u96FB\u304C\u5207\u308C\u3066\u3057\u307E\u3063\u305F\u3002"
+  - TroubleType: 11
+    MovementPenalty: 50
+    MovementMessage: "\u8033\u304C\u51CD\u50B7\u306B\u306A\u308A\u305D\u3046\u3060\u3002"
+  - TroubleType: 12
+    MovementPenalty: 200
+    MovementMessage: "\u9053\u306B\u8FF7\u3063\u3066\u3057\u307E\u3063\u305F\u3002"
+  TroubleOccurrenceWeightList:
+  - DistanceMeterStart: 0
+    DistanceMeterEnd: 3099
+    TroubleType: 1
+    OccurrenceWeight: 10
+  - DistanceMeterStart: 1
+    DistanceMeterEnd: 3099
+    TroubleType: 2
+    OccurrenceWeight: 10
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 0
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 1
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 2
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 3
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 4
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 5
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 6
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 7
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 8
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 9
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 10
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 11
+    OccurrenceWeight: 1
+  - DistanceMeterStart: 3100
+    DistanceMeterEnd: 99999
+    TroubleType: 12
+    OccurrenceWeight: 1

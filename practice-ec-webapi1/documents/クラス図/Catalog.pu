@@ -1,0 +1,88 @@
+@startuml practice-ec-webapi
+
+package Catalog{
+    package Domain{
+
+        class Product{
+            商品ID
+            商品名
+            商品説明
+            カテゴリID
+            税込単価
+            単価税額
+            ポイント単価 
+            レビュー平均値
+        }
+
+        interface ProductRepositoryInterface{
+            
+        }
+
+        class LargeCategoryList{
+            <List> LargeCategory
+        }
+
+        class LargeCategory{
+            カテゴリID
+            カテゴリ名
+            <List> 中カテゴリ
+        }
+
+        class MediumCategory{
+            カテゴリID
+            カテゴリ名
+            <List> 小カテゴリ
+        }
+
+        class SmallCategory{
+            カテゴリID
+            カテゴリ名
+        }
+
+        interface LargeCategoryListRepositoryInterface{
+            大カテゴリ一覧を取得する()
+        }
+    }
+    package Usecase{
+
+        class ProductGetAction{
+            商品を取得する()
+        }
+
+        interface ProductOutlineListQueryServiceInterface{
+
+        }
+
+        class ProductOutlineListQuery{
+            ページ番号
+            1ページあたりの件数
+            カテゴリID
+            キーワード
+            並び順
+        }
+
+        note top of ProductOutlineListQueryServiceInterface : 取得の条件を細かく指定できる\n * カテゴリ指定\n * キーワード指定\n * 価格順\n * 好レビュー順指定\n * 件数指定\n * オフセット指定 など        
+
+        class LargeCategoryListGetAction{
+            大カテゴリ一覧を取得する()
+        }
+
+        interface SmallCategoryListWithProductListQueryServiceInterface{
+            中カテゴリIDから、子カテゴリとその商品4つを取得する()
+        }
+
+        LargeCategoryListRepositoryInterface <.... LargeCategoryListGetAction
+
+        
+    }
+    package Infrastructure{
+
+        class LargeCategoryListRepository{
+        }
+
+        LargeCategoryListRepository  ..|> LargeCategoryListRepositoryInterface
+    }
+}
+   
+
+@enduml

@@ -1,0 +1,40 @@
+# Air設定ファイル
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# ビルドコマンド
+cmd = "go build -o ./tmp/main ./cmd/practice-next-go1/main.go"
+# ビルド後に実行するバイナリ
+bin = "./tmp/main"
+# 監視する拡張子
+include_ext = ["go", "tpl", "tmpl", "html"]
+# 監視しないディレクトリ
+exclude_dir = ["assets", "tmp", "vendor"]
+# 監視しないファイル
+exclude_file = []
+# 変更監視の遅延時間(ms)
+delay = 1000
+# ビルド終了時に実行するコマンド
+kill_delay = "0s"
+# ログ表示
+log = "build-errors.log"
+# 色付きログ出力
+color = true
+# ビルド前に既存のプロセスを終了するか
+stop_on_error = true
+
+[log]
+# エラー時に詳細ログを出力するか
+time = false
+
+[color]
+# 各カラーテーマ設定
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+
+[misc]
+# ファイル変更時にbeepするか
+clean_on_exit = true

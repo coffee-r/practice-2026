@@ -1,0 +1,59 @@
+@startuml practice-ec-webapi
+
+package Cart{
+    package Domain{
+
+        class Cart{
+            <List> カート商品
+            注文オプションを入力してカート情報を取得する()
+            注文を生成する()
+        }
+
+        class Order{
+            <List> 注文商品
+            注文オプションを入力してカート情報を取得する()
+            注文を生成する()
+        }
+
+        class PaymentMethod{
+            
+        }
+    }
+    package Usecase{
+        class CartWithPromotionGetAction{
+            カート情報を取得する()
+        }
+
+        class OrderCreateAction{
+            注文を行う()
+        }
+
+        class OrderGetAction{
+            注文を取得する()
+        }
+
+        class APIPaymentCheckoutAction{
+            API式決済処理で決済をする()
+        }
+
+        class LinkedPaymentRedirectUrlGetAction{
+            リンク式決済のURLを取得する()
+        }
+
+        class LinkedPaymentResultUpdateAction(){
+            リンク式決済の結果を更新する()
+        }
+
+        class OrderConfirmMailSendAction{
+            注文確認メールを送信する()
+        }
+    }
+    package Infrastructure{
+    }
+
+    Domain <.do. Usecase
+    Domain <.do. Infrastructure
+}
+   
+
+@enduml

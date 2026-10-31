@@ -1,0 +1,316 @@
+#!/usr/bin/env php
+<?php
+
+spl_autoload_register(function (string $class): void {
+    $prefix = 'TekagamiData\\Report\\';
+    if (!str_starts_with($class, $prefix)) {
+        return;
+    }
+    $rel  = str_replace('\\', '/', substr($class, strlen($prefix)));
+    $file = __DIR__ . '/../src/' . $rel . '.php';
+    if (is_file($file)) {
+        require $file;
+    }
+});
+
+use TekagamiData\Report\Aggregator;
+use TekagamiData\Report\CompactExporter;
+use TekagamiData\Report\DiffEngine;
+use TekagamiData\Report\DiffMarkdownRenderer;
+use TekagamiData\Report\JsonlReader;
+use TekagamiData\Report\MarkdownRenderer;
+use TekagamiData\Report\SummaryBuilder;
+use TekagamiData\Report\SummaryMarkdownRenderer;
+use TekagamiData\Report\TraceFilter;
+
+// ---------- argv parsing ----------
+
+$argv = $_SERVER['argv'];
+array_shift($argv); // スクリプト名を除去
+
+$command = null;
+$options = [];
+$paths   = [];
+
+$i = 0;
+while ($i < count($argv)) {
+    $arg = $argv[$i];
+    if ($arg === '--help' || $arg === '-h') {
+        $options['help'] = true;
+    } elseif ($arg === '--format' && isset($argv[$i + 1])) {
+        $options['format'] = $argv[$i + 1];
+        $i++;
+    } elseif ($arg === '--value-mode' && isset($argv[$i + 1])) {
+        $options['value-mode'] = $argv[$i + 1];
+        $i++;
+    } elseif ($arg === '--entrypoint' && isset($argv[$i + 1])) {
+        if (!isset($options['entrypoint'])) {
+            $options['entrypoint'] = [];
+        }
+        $options['entrypoint'][] = $argv[$i + 1];
+        $i++;
+    } elseif ($arg === '--path' && isset($argv[$i + 1])) {
+        if (!isset($options['path'])) {
+            $options['path'] = [];
+        }
+        $options['path'][] = $argv[$i + 1];
+        $i++;
+    } elseif ($arg === '--method' && isset($argv[$i + 1])) {
+        $options['method'] = $argv[$i + 1];
+        $i++;
+    } elseif (strpos($arg, '--') === 0) {
+        fwrite(STDERR, "Unknown option: $arg\n");
+        exit(1);
+    } elseif ($command === null) {
+        $command = $arg;
+    } else {
+        $paths[] = $arg;
+    }
+    $i++;
+}
+
+// ---------- help / dispatch ----------
+
+if ($command === null || isset($options['help'])) {
+    printHelp();
+    exit(0);
+}
+
+if ($command === 'report') {
+    runReport($paths, $options);
+} elseif ($command === 'export') {
+    runExport($paths, $options);
+} elseif ($command === 'summary') {
+    runSummary($paths, $options);
+} elseif ($command === 'diff') {
+    runDiff($paths, $options);
+} else {
+    fwrite(STDERR, "Unknown command: $command\n\n");
+    printHelp();
+    exit(1);
+}
+
+// ---------- command handlers ----------
+
+function runReport(array $paths, array $options)
+{
+    if (count($paths) === 0) {
+        fwrite(STDERR, "Error: No JSONL files given.\n");
+        exit(1);
+    }
+
+    $format    = isset($options['format']) ? $options['format'] : 'md';
+    $valueMode = isset($options['value-mode']) ? $options['value-mode'] : 'normalized';
+
+    if (!in_array($format, ['md', 'markdown', 'json'], true)) {
+        fwrite(STDERR, "Error: Unknown format '$format'. Use: md, json\n");
+        exit(1);
+    }
+
+    $reader = new JsonlReader();
+    try {
+        $traces = $reader->read($paths);
+    } catch (\RuntimeException $e) {
+        fwrite(STDERR, "Error: " . $e->getMessage() . "\n");
+        exit(1);
+    }
+
+    foreach ($reader->warnings() as $warning) {
+        fwrite(STDERR, "Warning: $warning\n");
+    }
+
+    $filter = new TraceFilter($options);
+    $traces = $filter->filter($traces);
+
+    $report = (new Aggregator($valueMode))->aggregate($traces);
+
+    if ($format === 'json') {
+        echo json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+    } else {
+        echo (new MarkdownRenderer())->render($report);
+    }
+
+    exit(0);
+}
+
+function runExport(array $paths, array $options)
+{
+    if (count($paths) === 0) {
+        fwrite(STDERR, "Error: No JSONL files given.\n");
+        exit(1);
+    }
+
+    $format    = isset($options['format']) ? $options['format'] : 'json';
+    $valueMode = isset($options['value-mode']) ? $options['value-mode'] : 'normalized';
+
+    if (!in_array($format, ['json', 'md', 'markdown'], true)) {
+        fwrite(STDERR, "Error: Unknown format '$format'. Use: json, md\n");
+        exit(1);
+    }
+
+    $reader = new JsonlReader();
+    try {
+        $traces = $reader->read($paths);
+    } catch (\RuntimeException $e) {
+        fwrite(STDERR, "Error: " . $e->getMessage() . "\n");
+        exit(1);
+    }
+
+    foreach ($reader->warnings() as $warning) {
+        fwrite(STDERR, "Warning: $warning\n");
+    }
+
+    $filter = new TraceFilter($options);
+    $traces = $filter->filter($traces);
+
+    $report = (new Aggregator($valueMode))->aggregate($traces);
+    $exporter = new CompactExporter();
+    $export = $exporter->export($report);
+
+    if ($format === 'json') {
+        echo json_encode($export, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+    } else {
+        echo $exporter->renderMarkdown($export);
+    }
+
+    exit(0);
+}
+
+function runSummary(array $paths, array $options)
+{
+    if (count($paths) === 0) {
+        fwrite(STDERR, "Error: No JSONL files given.\n");
+        exit(1);
+    }
+
+    $format    = isset($options['format']) ? $options['format'] : 'md';
+    $valueMode = isset($options['value-mode']) ? $options['value-mode'] : 'normalized';
+
+    if (!in_array($format, ['md', 'markdown', 'json'], true)) {
+        fwrite(STDERR, "Error: Unknown format '$format'. Use: md, json\n");
+        exit(1);
+    }
+
+    $reader = new JsonlReader();
+    try {
+        $allTraces = $reader->read($paths);
+    } catch (\RuntimeException $e) {
+        fwrite(STDERR, "Error: " . $e->getMessage() . "\n");
+        exit(1);
+    }
+
+    foreach ($reader->warnings() as $warning) {
+        fwrite(STDERR, "Warning: $warning\n");
+    }
+
+    $filter = new TraceFilter($options);
+    $traces = $filter->filter($allTraces);
+    $summary = (new SummaryBuilder($valueMode))->build($traces, [
+        'input_file_count'   => count($paths),
+        'source_trace_count' => count($allTraces),
+        'filter'             => $filter->describe(),
+    ]);
+
+    if ($format === 'json') {
+        echo json_encode($summary, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+    } else {
+        echo (new SummaryMarkdownRenderer())->render($summary);
+    }
+
+    exit(0);
+}
+
+function runDiff(array $paths, array $options)
+{
+    if (count($paths) !== 2) {
+        fwrite(STDERR, "Error: diff requires exactly 2 export.json files.\n");
+        fwrite(STDERR, "Usage: tekagami diff <legacy-export.json> <target-export.json> [--format json|md]\n");
+        exit(1);
+    }
+
+    $format = isset($options['format']) ? $options['format'] : 'json';
+    if (!in_array($format, ['json', 'md', 'markdown'], true)) {
+        fwrite(STDERR, "Error: Unknown format '$format'. Use: json, md\n");
+        exit(1);
+    }
+
+    foreach ($paths as $path) {
+        if (!is_file($path)) {
+            fwrite(STDERR, "Error: File not found: $path\n");
+            exit(1);
+        }
+    }
+
+    $legacy = json_decode(file_get_contents($paths[0]), true);
+    $target = json_decode(file_get_contents($paths[1]), true);
+
+    if (!is_array($legacy)) {
+        fwrite(STDERR, "Error: Could not parse JSON from: {$paths[0]}\n");
+        exit(1);
+    }
+    if (!is_array($target)) {
+        fwrite(STDERR, "Error: Could not parse JSON from: {$paths[1]}\n");
+        exit(1);
+    }
+
+    $result = (new DiffEngine())->diff($legacy, $target);
+
+    if ($format === 'json') {
+        echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+    } else {
+        echo (new DiffMarkdownRenderer())->render($result);
+    }
+
+    exit(0);
+}
+
+function printHelp()
+{
+    echo <<<'HELP'
+tekagami — tekagami-v1 report and export tool
+
+Usage:
+  tekagami summary <jsonl...> [--format md|json] [--entrypoint PATTERN...] [--path PATTERN...] [--method METHOD]
+  tekagami report <jsonl...> [--format md|json] [--value-mode normalized|tokenized] [--entrypoint PATTERN...] [--path PATTERN...] [--method METHOD]
+  tekagami export <jsonl...> [--format json|md] [--value-mode normalized|tokenized] [--entrypoint PATTERN...] [--path PATTERN...] [--method METHOD]
+  tekagami diff   <legacy-export.json> <target-export.json> [--format json|md]
+  tekagami --help
+
+Commands:
+  summary  Generate a compact endpoint catalog from JSONL tekagami files
+  report   Generate a Markdown or JSON summary report from JSONL tekagami files
+  export   Generate a compact JSON or Markdown artifact for AI review
+  diff     Compare two export.json files and report behavioral differences
+
+Options for summary/report/export:
+  --entrypoint PATTERN      Include matching entrypoint keys (METHOD path). Repeatable. "*" wildcard supported.
+  --path PATTERN            Include matching paths/path patterns. Repeatable. "*" wildcard supported.
+  --method METHOD           Include only this HTTP method.
+
+Options for report:
+  --format md|json          Output format (default: md)
+  --value-mode normalized|tokenized
+                            SQL value display mode (default: normalized)
+
+Options for export:
+  --format json|md          Output format (default: json)
+  --value-mode normalized|tokenized
+                            SQL value display mode (default: normalized)
+
+Options for diff:
+  --format json|md          Output format (default: json)
+
+Examples:
+  tekagami summary trace.jsonl
+  tekagami summary trace.jsonl --path "/api/cart/*" --path "/api/products/*"
+  tekagami report trace.jsonl
+  tekagami report trace.jsonl --method POST --path "/api/cart/*"
+  tekagami report --format json jan.jsonl feb.jsonl > report.json
+  tekagami export legacy.jsonl > legacy.export.json
+  tekagami export trace.jsonl --entrypoint "POST /api/cart/items"
+  tekagami export target.jsonl > target.export.json
+  tekagami diff legacy.export.json target.export.json
+  tekagami diff legacy.export.json target.export.json --format md
+
+HELP;
+}

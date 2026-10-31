@@ -1,0 +1,62 @@
+@startuml practice-ec-webapi
+
+package User{
+    package Domain{
+
+        class User{
+            ユーザーID
+            ユーザー名
+            ユーザー名フリガナ
+            メールアドレス
+            パスワード
+            郵便番号
+            住所
+            電話番号
+            生年月
+            メールマガジン購読
+        }
+
+        note right of User : ユーザー間でメールアドレスの\n重複はできない
+
+
+        interface UserRepositoryInterface{
+
+        }
+
+        interface UserFactoryInterface{
+            
+        } 
+    }
+
+    package Usecase{
+        class UserGetAction{
+            ユーザー情報を取得する()
+        }
+        class UserUpdateAction{
+            ユーザー情報を更新する()
+        }
+        class UserRegisterAction{
+            ユーザーを新規登録する()
+        }
+
+        UserRepositoryInterface <.. UserGetAction
+        UserRepositoryInterface <.. UserUpdateAction
+        UserRepositoryInterface <.. UserRegisterAction
+        UserFactoryInterface <.. UserRegisterAction
+    }
+
+    package Infrastructure{
+        class UserRepository{
+
+        }
+        class UserFactory{
+
+        }
+
+        UserRepository  ..|> UserRepositoryInterface
+        UserFactory ..|> UserFactoryInterface
+    }
+}
+   
+
+@enduml

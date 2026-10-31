@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgyr5w2r6hn08"]
+
+[ext_resource type="Script" path="res://star.gd" id="1_5ar7w"]
+[ext_resource type="Texture2D" uid="uid://bnyy3chvnl143" path="res://textures/star.png" id="1_ogq5t"]
+[ext_resource type="AudioStream" uid="uid://d33a6818sgx5w" path="res://sounds/collision.mp3" id="3_v2ssp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q5206"]
+radius = 2.5
+
+[node name="Star" type="CharacterBody2D" groups=["stars"]]
+collision_layer = 8
+collision_mask = 26
+script = ExtResource("1_5ar7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ogq5t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2.08165e-12)
+shape = SubResource("CircleShape2D_q5206")
+
+[node name="CollisionSE" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_v2ssp")

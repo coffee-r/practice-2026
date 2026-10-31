@@ -1,0 +1,119 @@
+{
+    "generated_at": "2026-06-01T22:07:39+00:00",
+    "trace_count": 69,
+    "observed_endpoint_count": 7,
+    "observed_started_at_min": "2026-06-01T22:06:53+00:00",
+    "observed_started_at_max": "2026-06-01T22:07:26+00:00",
+    "value_mode": "normalized",
+    "input_file_count": 1,
+    "source_trace_count": 69,
+    "filter": {
+        "entrypoint": [],
+        "path": [],
+        "method": null
+    },
+    "observed_endpoint_catalog": [
+        {
+            "group_hint": "/api/cart",
+            "entrypoint_key": "POST /api/cart/items",
+            "observed_count": 36,
+            "status_codes": {
+                "201": 32,
+                "404": 1,
+                "422": 3
+            },
+            "pattern_count": 11,
+            "rare_pattern_count": 8,
+            "custom_event_count": 6,
+            "has_write_effects": true,
+            "error_count": 0,
+            "truncated_count": 0
+        },
+        {
+            "group_hint": "/api/checkout",
+            "entrypoint_key": "POST /api/checkout/quote",
+            "observed_count": 14,
+            "status_codes": {
+                "200": 5,
+                "422": 9
+            },
+            "pattern_count": 9,
+            "rare_pattern_count": 7,
+            "custom_event_count": 5,
+            "has_write_effects": false,
+            "error_count": 0,
+            "truncated_count": 0
+        },
+        {
+            "group_hint": "/api/orders",
+            "entrypoint_key": "POST /api/orders",
+            "observed_count": 11,
+            "status_codes": {
+                "201": 5,
+                "422": 6
+            },
+            "pattern_count": 9,
+            "rare_pattern_count": 7,
+            "custom_event_count": 10,
+            "has_write_effects": true,
+            "error_count": 0,
+            "truncated_count": 0
+        },
+        {
+            "group_hint": "/api/cart",
+            "entrypoint_key": "GET /api/cart",
+            "observed_count": 5,
+            "status_codes": {
+                "200": 5
+            },
+            "pattern_count": 2,
+            "rare_pattern_count": 1,
+            "custom_event_count": 1,
+            "has_write_effects": false,
+            "error_count": 0,
+            "truncated_count": 0
+        },
+        {
+            "group_hint": "/api/test",
+            "entrypoint_key": "POST /api/test/reset",
+            "observed_count": 1,
+            "status_codes": {
+                "200": 1
+            },
+            "pattern_count": 1,
+            "rare_pattern_count": 1,
+            "custom_event_count": 1,
+            "has_write_effects": true,
+            "error_count": 0,
+            "truncated_count": 0
+        },
+        {
+            "group_hint": "/api/orders",
+            "entrypoint_key": "POST /api/orders/{id}/cancel",
+            "observed_count": 1,
+            "status_codes": {
+                "200": 1
+            },
+            "pattern_count": 1,
+            "rare_pattern_count": 1,
+            "custom_event_count": 1,
+            "has_write_effects": true,
+            "error_count": 0,
+            "truncated_count": 0
+        },
+        {
+            "group_hint": "/api/payments",
+            "entrypoint_key": "POST /api/payments/credit/callback",
+            "observed_count": 1,
+            "status_codes": {
+                "200": 1
+            },
+            "pattern_count": 1,
+            "rare_pattern_count": 1,
+            "custom_event_count": 1,
+            "has_write_effects": true,
+            "error_count": 0,
+            "truncated_count": 0
+        }
+    ]
+}

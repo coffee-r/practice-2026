@@ -1,0 +1,13 @@
+# Environment variables
+.env
+
+# rclone config (contains secrets)
+rclone.conf
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

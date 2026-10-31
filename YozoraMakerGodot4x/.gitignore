@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+.DS_Store
+fonts/
+sounds/bgm.mp3
+sounds/collision.mp3
+sounds/result.mp3
+sounds/start.mp3

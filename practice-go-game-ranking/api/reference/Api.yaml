@@ -1,0 +1,335 @@
+openapi: 3.1.0
+x-stoplight:
+  id: ne2jk7fjkvull
+info:
+  title: UserHighScoreRankingAPI
+  version: '1.0'
+  summary: ユーザーハイスコアランキングAPI
+  description: ゲームなどの用途で利用できるユーザーハイスコアランキングの機能を提供します。
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /users:
+    post:
+      summary: ユーザーの新規作成
+      operationId: post-user
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+                x-examples:
+                  Example 1:
+                    id: 3
+                    name: コーヒー
+                    created_at: '2025-01-04T07:57:58.42Z'
+                    updated_at: '2025-01-04T07:57:58.42Z'
+        '400':
+          description: Missing Required Information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+                x-examples:
+                  Example 1:
+                    error: バリデーションエラー
+                    message:
+                      - 'フィールド ''Name'' の値が不正です: required'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  x-stoplight:
+                    id: yswx3chmni6f1
+                  description: ユーザー名
+              required:
+                - name
+            examples:
+              Create User Bob Fellow:
+                value:
+                  name: coffee-r
+        description: ''
+      description: ユーザーを新規に作成します。
+      tags:
+        - Users
+    parameters: []
+    get:
+      summary: ユーザー一覧の取得
+      operationId: get-users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                x-examples:
+                  Example 1:
+                    - id: 1
+                      name: coffee-r
+                      created_at: '2025-01-04T05:03:25.8033333Z'
+                      updated_at: '2025-01-04T05:03:25.8033333Z'
+                    - id: 2
+                      name: coffee-r2
+                      created_at: '2025-01-04T05:51:58.7766667Z'
+                      updated_at: '2025-01-04T05:51:58.7766667Z'
+                items:
+                  $ref: '#/components/schemas/User'
+      description: ユーザー一覧を取得します。
+      tags:
+        - Users
+  /rankings:
+    get:
+      summary: ランキング一覧の取得
+      tags:
+        - Rankings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                x-examples:
+                  Example 1:
+                    - id: 1
+                      name: game ranking
+                      created_at: '2025-01-04T05:15:16.7166667Z'
+                      updated_at: '2025-01-04T05:15:16.7166667Z'
+                items:
+                  $ref: '#/components/schemas/Ranking'
+      operationId: get-rankings
+      description: ランキングの一覧を取得します。
+      requestBody:
+        content: {}
+    post:
+      summary: ランキングの新規作成
+      operationId: post-rankings
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ranking'
+                x-examples:
+                  Example 1:
+                    id: 1
+                    name: game ranking
+                    created_at: '2025-01-04T05:15:16.7166667Z'
+                    updated_at: '2025-01-04T05:15:16.7166667Z'
+      description: ランキングを新規に作成します。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  x-stoplight:
+                    id: 5383wsd0ljw8e
+                  description: ランキング名
+              required:
+                - name
+            examples:
+              Example 1:
+                value:
+                  name: game ranking
+      tags:
+        - Rankings
+  '/rankings/{ranking_id}/high_scores':
+    parameters:
+      - schema:
+          type: string
+        name: ranking_id
+        in: path
+        required: true
+    get:
+      summary: ユーザーのハイスコア一覧の取得
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    ranking_id: 1
+                    ranking_name: game ranking
+                    user_ranks:
+                      - user_id: 1
+                        user_name: coffee-r
+                        rank: 1
+                        score: 10
+                      - user_id: 2
+                        user_name: coffee-r2
+                        rank: 2
+                        score: 5
+                properties:
+                  ranking_id:
+                    type: integer
+                    description: ランキングID
+                  ranking_name:
+                    type: string
+                    description: ランキング名
+                  user_ranks:
+                    type: array
+                    description: ユーザーランク
+                    items:
+                      type: object
+                      properties:
+                        user_id:
+                          type: integer
+                          description: ユーザーID
+                        user_name:
+                          type: string
+                          description: ユーザー名
+                        rank:
+                          type: integer
+                          description: ランク
+                        score:
+                          type: integer
+                          description: スコア
+                      required:
+                        - user_id
+                        - user_name
+                        - rank
+                        - score
+                required:
+                  - ranking_id
+                  - ranking_name
+                  - user_ranks
+      operationId: get-rankings-ranking_id-user_scores
+      description: あるランキングにおけるユーザーのハイスコア一覧を取得します。
+      parameters:
+        - schema:
+            type: string
+            default: score
+            example: score
+          in: query
+          name: sort_key
+          description: ソートするキー
+          required: true
+        - schema:
+            type: string
+            default: DESC
+            example: DESC
+            enum:
+              - ASC
+              - DESC
+          in: query
+          name: sort_order
+          description: ソート順
+          required: true
+      tags:
+        - HighScore
+  '/rankings/{ranking_id}/high_scores/{user_id}':
+    parameters:
+      - schema:
+          type: string
+        name: ranking_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: user_id
+        in: path
+        required: true
+    put:
+      summary: ユーザーのハイスコア登録更新
+      operationId: put-rankings-ranking_id-user_scores-user_id
+      responses:
+        '200':
+          description: OK
+      description: あるランキングにおけるユーザーのハイスコアを登録・更新します。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                score:
+                  type: integer
+                  x-stoplight:
+                    id: 9jodbflnddmu2
+                  description: スコア
+              required:
+                - score
+        description: ''
+      tags:
+        - HighScore
+components:
+  schemas:
+    User:
+      type: object
+      x-examples:
+        Example 1:
+          id: 1
+          name: game ranking
+          created_at: '2025-01-04T05:15:16.7166667Z'
+          updated_at: '2025-01-04T05:15:16.7166667Z'
+      title: User
+      description: ユーザーモデル
+      properties:
+        id:
+          type: integer
+          description: ユーザーID
+        name:
+          type: string
+          description: ユーザー名
+        created_at:
+          type: string
+          description: 作成日時
+          format: date-time
+        updated_at:
+          type: string
+          description: 更新日時
+          format: date-time
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+    Ranking:
+      type: object
+      x-examples:
+        Example 1:
+          id: 1
+          name: game ranking
+          created_at: '2025-01-04T05:15:16.7166667Z'
+          updated_at: '2025-01-04T05:15:16.7166667Z'
+      properties:
+        id:
+          type: integer
+          description: ランキングID
+        name:
+          type: string
+          description: ランキング名
+        created_at:
+          type: string
+          description: 作成日時
+          format: date-time
+        updated_at:
+          type: string
+          description: 更新日時
+          format: date-time
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at

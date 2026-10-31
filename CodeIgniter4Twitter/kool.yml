@@ -1,0 +1,19 @@
+# Here you can define shortcuts and aliases to common tasks (commands)
+# you will run in your local environment or CI or deploy.
+#  Use the scripts defined below with:
+#    $ kool run <script>
+# Learn more at: https://kool.dev/docs/getting-started/how-it-works#koolyml
+scripts:
+  composer: kool exec app composer
+  spark: kool exec app php spark
+  phpunit: kool exec app vendor/bin/phpunit
+  # CLI access to MySQL
+  mysql: kool exec -e MYSQL_PWD=$DB_PASSWORD database mysql -u $DB_USERNAME $DB_DATABASE
+  setup:
+    - kool docker kooldev/bash -c "cp env .env"
+    - kool start
+    - kool run composer install
+    - kool run spark key:generate
+  reset:
+    - kool run composer install
+    - kool run spark migrate:refresh -f

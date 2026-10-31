@@ -1,0 +1,94 @@
+@startuml practice-ec-webapi
+
+package Cart{
+    package Domain{
+        class Product{
+            商品ID
+            商品名
+            税込単価
+            単価税額
+            ポイント単価
+        }
+
+        class CartProduct{
+            商品ID
+            商品名
+            税込単価
+            単価税額
+            ポイント単価
+            ゆうパケット振り替え後商品
+            ゆうパケット振り替え前商品
+            数量
+        }
+
+        class CartProductList{
+            <List> カート商品
+        }
+
+        note top of CartProductList :・カート商品が単一商品・数量1で\n　ゆうパケット振替先商品が\n　ある時は振替\n・カート商品が複数個の場合で\n　ゆうパケット振戻商品が\n　ある時は振り戻し
+
+         class Cart{
+            カートID
+            商品リスト
+            商品を追加する()
+            商品を削除する()
+        }
+
+        interface CartRepositoryInterface{
+
+        }
+
+        interface CartFactoryInterface{
+
+        }
+
+        interface CartProductFactoryInterface{
+
+        }
+    }
+
+    package Usecase{
+        class CartCreateAction{
+            カートを作成する()
+        }
+        class CartGetAction{
+            カート情報を取得する()
+        }
+
+        note left of CartGetAction : このカート取得では\nプロモーションを\n一切適用しない
+
+        class CartProductAddAction{
+            カートに商品を追加する()
+        }
+        class CartProductRemoveAction{
+            カートの商品を削除する()
+        }
+
+        CartRepositoryInterface <... CartCreateAction
+        CartFactoryInterface <... CartCreateAction
+        CartRepositoryInterface <... CartGetAction
+        CartRepositoryInterface <... CartProductAddAction
+        CartProductFactoryInterface <... CartProductAddAction
+        CartRepositoryInterface <... CartProductRemoveAction
+
+    }
+
+    package Infrastructure{
+        class CartRepository{
+
+        }
+        class CartFactory{
+
+        }
+        class CartProductFactory{
+
+        }
+
+        CartRepository  ..|> CartRepositoryInterface
+        CartFactory ..|> CartFactoryInterface
+        CartProductFactory ..|> CartProductFactoryInterface
+    }
+}
+   
+
+@enduml

@@ -1,0 +1,61 @@
+services:
+  frontend:
+    container_name: practice-next-go1-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    depends_on:
+      - backend
+    networks:
+      - practice-next-go1
+  backend:
+    container_name: practice-next-go1-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    networks:
+      - practice-next-go1
+  db:
+    image: 'postgres:17.4'
+    ports:
+        - '5432:5432'
+    environment:
+        PGPASSWORD: 'dbuser'
+        POSTGRES_DB: 'practice_next_go1'
+        POSTGRES_USER: 'webdb'
+        POSTGRES_PASSWORD: 'dbuser'
+    volumes:
+        - 'practice-next-go1-pgsql:/var/lib/postgresql/data'
+    networks:
+        - practice-next-go1
+    healthcheck:
+        test:
+            - CMD
+            - pg_isready
+            - '-q'
+            - '-d'
+            - 'practice_next_go1'
+            - '-U'
+            - 'webdb'
+        retries: 3
+        timeout: 5s
+networks:
+    practice-next-go1:
+        driver: bridge
+volumes:
+    practice-next-go1-pgsql:
+        driver: local

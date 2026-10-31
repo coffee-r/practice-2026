@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://c10jgrntpskpa"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_u8vsu"]
+[ext_resource type="PackedScene" uid="uid://dxwfy7y4add33" path="res://title.tscn" id="2_aydxe"]
+[ext_resource type="PackedScene" uid="uid://douhlhep4qoha" path="res://game.tscn" id="2_iibej"]
+[ext_resource type="PackedScene" uid="uid://b1vs14hoby88p" path="res://result.tscn" id="3_dalu5"]
+[ext_resource type="Script" path="res://TransitionUI.gd" id="5_57c1r"]
+[ext_resource type="AudioStream" uid="uid://muedcf10u1fh" path="res://sounds/bgm.mp3" id="6_v3or4"]
+[ext_resource type="Texture2D" uid="uid://c84pt6tkx6vf6" path="res://textures/background.png" id="6_x7pjq"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g71us"]
+texture = ExtResource("6_x7pjq")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+0:2/0 = 0
+2:2/0 = 0
+4:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+9:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+7:4/0 = 0
+9:4/0 = 0
+1:5/0 = 0
+9:5/0 = 0
+5:6/0 = 0
+7:6/0 = 0
+1:7/0 = 0
+3:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+2:8/0 = 0
+4:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+0:9/0 = 0
+6:9/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_p5jqg"]
+sources/0 = SubResource("TileSetAtlasSource_g71us")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_u8vsu")
+game_scene = ExtResource("2_iibej")
+result_scene = ExtResource("3_dalu5")
+
+[node name="Title" parent="." instance=ExtResource("2_aydxe")]
+
+[node name="TransitionUI" type="CanvasLayer" parent="."]
+layer = 128
+script = ExtResource("5_57c1r")
+
+[node name="ColorRect" type="ColorRect" parent="TransitionUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -136.0
+offset_right = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.984314, 0.94902, 0.211765, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_p5jqg")
+format = 2
+layer_0/tile_data = PackedInt32Array(131072, 196608, 0, 917511, 393216, 9, 851971, 262144, 1, 589829, 393216, 0, 589826, 524288, 0, 786433, 0, 4, 196612, 393216, 0, 131079, 0, 9, 327681, 327680, 0)
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_v3or4")
+autoplay = true
+
+[connection signal="game_start" from="Title" to="." method="_on_title_game_start"]

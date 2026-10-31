@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Bootstrap.unity
+    guid: 73e3f7f0137bb43258aac9f263a87989
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: a1f2f9338d0a54491a91f5a8a2ab722c
+  - enabled: 1
+    path: Assets/Scenes/Licence.unity
+    guid: 8104e228a1dc543cd87ffa00c29e68fd
+  - enabled: 1
+    path: Assets/Scenes/Planning.unity
+    guid: faf9bc68eb332443e89165581c063e3f
+  - enabled: 1
+    path: Assets/Scenes/TrekkingLevel1.unity
+    guid: fdca223a0f98541878f10b5ef5870b1b
+  - enabled: 1
+    path: Assets/Scenes/ItemUse.unity
+    guid: f2b8c100d3a5f45cab358df97c353071
+  - enabled: 1
+    path: Assets/Scenes/ItemEquipment.unity
+    guid: cf2156d4a2edb45b0b6bf5a6339babd0
+  - enabled: 1
+    path: Assets/Scenes/Goal1.unity
+    guid: e7b37fdcd901a4121bc51880aa760bd6
+  - enabled: 1
+    path: Assets/Scenes/Goal2.unity
+    guid: 8518d74e880c64f2f90019056f1473bc
+  - enabled: 1
+    path: Assets/Scenes/Goal3.unity
+    guid: 5abd118b1c1464b9b8f9c479a145b33b
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 90af091876b0c44a891addcd8544d5b9
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_UseUCBPForAssetBundles: 0
